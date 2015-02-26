@@ -194,12 +194,55 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    var ans = true;
+
+
+    if(iterator) {
+      _.each(collection, function (element) {
+        if(!iterator(element)){
+          ans = false;
+          return false;    
+        }
+      }); 
+      
+      }else {
+      _.each(collection, function (element) {
+              if(element === false){
+                ans = false;
+                return false;    
+              }
+      });
+    }  
+    return ans;
+
   };
+
+
+
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var ans = false;
+    
+
+    if(iterator) {
+      _.every(collection, function(element){
+        if(iterator(element)) {
+          ans = true;
+          return true;
+        }
+      });
+    } else {
+      _.every(collection, function(element){
+        if(element) {
+          ans = true;
+          return true;
+        }
+      });
+    }
+    return ans;
   };
 
 
@@ -222,13 +265,57 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+ 
+   
+    var length = arguments.length;
+
+    for(var i = 1; i<length; i++) {
+      var element = arguments[i];
+
+      for(var prop in element) {
+        obj[prop] = element[prop];
+      }  
+    }
+return obj;
+
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+ 
+ var length = arguments.length;
+
+    for(var i = 1; i<length; i++) {
+      var element = arguments[i];
+
+      for(var prop in element) {
+        if(obj[prop] === undefined) {
+        obj[prop] = element[prop];
+        }
+      }  
+    }
+return obj;
+
   };
 
+/*
+extend({x:1},{y:2},{z:3})
+
+  function extend(obj) {
+
+    var length = arguments.length;
+
+    for(var i = 1; i<length; i++) {
+      var element = arguments[i];
+
+      for(var prop in element) {
+        obj[prop] = element[prop];
+      }  
+    }
+return obj;
+  }
+*/
 
   /**
    * FUNCTIONS
