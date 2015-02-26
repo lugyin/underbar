@@ -114,10 +114,18 @@
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
+    
+    var ans = [];
+    _.each(collection, function(x) {
+      ans.push(iterator(x));
+    })
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    return ans;
   };
+
+
 
   /*
    * TIP: map is really handy when you want to transform an array of
@@ -158,6 +166,16 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+  
+  if(accumulator === undefined) {
+    accumulator = collection.shift();
+  }
+
+    _.each(collection, function(element){
+        accumulator = iterator(accumulator, element);
+    });
+
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
