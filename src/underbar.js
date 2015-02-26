@@ -366,9 +366,35 @@ return obj;
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+
+    var args = Array.prototype.slice.call(arguments,2);
+
+    return setTimeout(function(){
+      return func.apply(null, args);},wait);
   };
 
 
+/*
+
+var func = function(x,y) {
+  return x + y;
+}
+
+setTimeout(func, 1000, 3,4);
+
+
+
+var delay = function(func, wait) {
+      
+    var args = Array.prototype.slice.call(arguments,2);
+
+    return setTimeout(function(){return func.apply(null, args);},wait);
+
+}
+  
+delay(func ,100, 3,4);
+
+*/
   /**
    * ADVANCED COLLECTION OPERATIONS
    * ==============================
