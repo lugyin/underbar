@@ -348,6 +348,8 @@ return obj;
     };
   };
 
+
+
   // Memorize an expensive function's results by storing them. You may assume
   // that the function takes only one argument and that it is a primitive.
   // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
@@ -358,6 +360,13 @@ return obj;
   // instead if possible.
   _.memoize = function(func) {
   };
+
+
+
+
+
+
+
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
@@ -405,8 +414,45 @@ delay(func ,100, 3,4);
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+ 
+
   _.shuffle = function(array) {
+  
+ var holder = array.slice(0);
+ var count = holder.length;
+    
+    while(count) {
+
+      var random = Math.floor(Math.random() * count);
+      count += -1;
+
+        var temp = holder[count];
+        holder[count] = holder[random];
+        holder[random] = temp;
+      }
+      return holder; 
   };
+
+/*
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+*/
 
 
   /**
