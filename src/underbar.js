@@ -101,15 +101,32 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+    _.uniq = function(array) {
+      var ans = [];
+       for(var i = 0; i<array.length; i++) {
+          if(ans.indexOf(array[i]) === -1) {
+            ans.push(array[i]);
+          }
+        };
+      return ans;
+    };
+
+/*
+  var test = function(array) {
     var ans = [];
-    _.each(array, function(x) {
-      if(_.indexOf(x) === -1) {
-        ans.push(x);
-      }
-    });
+     for(var i = 0; i<array.length; i++) {
+        if(ans.indexOf(array[i]) === -1) {
+          console.log(array[i])
+          ans.push(array[i]);
+        }
+      };
     return ans;
   };
+
+*/
+
+
+
 
 
   // Return the results of applying an iterator to each element.
@@ -358,7 +375,21 @@ return obj;
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  _.memoize = function(func) {
+  _.memoize  = function(func) {
+  
+  var memo = {};
+
+    return function() {
+      var args = Array.prototype.slice.call(arguments,0);
+
+
+      if(args in memo) {
+          return memo[args];
+      } else {
+        return  memo[args] = func.apply(this, args);
+      }
+    }
+
   };
 
 
